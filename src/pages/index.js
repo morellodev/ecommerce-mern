@@ -26,7 +26,7 @@ export default function Home() {
           You cannot actually buy something, but the items you see are real!
         </p>
         <Link href="/products" passHref>
-          <Button variant="primary">Explore Products &#10095;</Button>
+          <Button variant="dark">Explore Products &#10095;</Button>
         </Link>
       </Jumbotron>
     </Layout>
