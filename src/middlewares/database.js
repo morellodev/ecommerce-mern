@@ -1,13 +1,10 @@
 import { MongoClient } from "mongodb";
 import nextConnect from "next-connect";
 
-const client = new MongoClient(
-  "mongodb+srv://dennis_morello:SgpbppDvlc8blhe0@cluster0-f9sr4.mongodb.net/test?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+const client = new MongoClient(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 async function database(req, res, next) {
   if (!client.isConnected()) {
