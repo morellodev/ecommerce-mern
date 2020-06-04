@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // Bootstrap
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -16,6 +18,11 @@ export default function ProductCard({ product }) {
         <Card.Subtitle className="mb-4 text-muted">
           {currencyFormatter.format(product.unitPrice)}
         </Card.Subtitle>
+        <Link href="/products/[id]" as={`/products/${product._id}`} passHref>
+          <Button variant="outline-dark" block>
+            Details
+          </Button>
+        </Link>
         <Button variant="dark" block>
           Add to Cart
         </Button>

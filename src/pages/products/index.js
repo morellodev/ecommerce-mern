@@ -1,10 +1,22 @@
 import Head from "next/head";
+import { useQuery } from "react-query";
 
 // Components
 import Layout from "@components/Layout";
 import ProductsGrid from "@components/ProductsGrid";
+import Spinner from "@components/Spinner";
 
-function Products({ data }) {
+// Configurations
+import { KEY_ALL_PRODUCTS_GET } from "@configs/queryKeys";
+
+export default function Products() {
+  const { data, status } = useQuery(KEY_ALL_PRODUCTS_GET, async () => {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+
+    return data;
+  });
+
   return (
     <Layout>
       <Head>
@@ -12,16 +24,11 @@ function Products({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ProductsGrid products={data} />
+      {status === "loading" && <Spinner />}
+
+      {status !== "loading" && data?.data && (
+        <ProductsGrid products={data.data} />
+      )}
     </Layout>
   );
 }
-
-export async function getServerSideProps() {
-  const res = await fetch(`${process.env.DEPLOY_URI}/api/products`);
-  const data = await res.json();
-
-  return { props: { data: data.data } };
-}
-
-export default Products;

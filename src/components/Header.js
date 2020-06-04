@@ -27,7 +27,7 @@ export default function Header() {
             <Nav.Link active={router.pathname === "/"}>Home</Nav.Link>
           </Link>
           <Link href="/products" passHref>
-            <Nav.Link active={router.pathname === "/products"}>
+            <Nav.Link active={router.pathname.startsWith("/products")}>
               Products
             </Nav.Link>
           </Link>
