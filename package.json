@@ -1,5 +1,5 @@
 {
-  "name": "ubw-mern",
+  "name": "ecommerce-mern",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "bootstrap": "^4.5.0",
+    "mongodb": "^3.5.8",
     "next": "9.4.4",
+    "next-connect": "^0.6.6",
     "react": "16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "16.13.1"
   }
 }
