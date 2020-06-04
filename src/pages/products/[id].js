@@ -17,7 +17,9 @@ function Products({ data }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const res = await fetch(`http://localhost:3000/api/products/${params.id}`);
+  const res = await fetch(
+    `${process.env.DEPLOY_URI}/api/products/${params.id}`
+  );
   const data = await res.json();
 
   return { props: { data } };

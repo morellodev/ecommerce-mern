@@ -1,5 +1,6 @@
 {
   "env": {
+    "DEPLOY_URI": "https://ecommerce-mern.now.sh",
     "MONGODB_URI": "@ecommerce-mongodb-uri"
   }
 }
