@@ -17,11 +17,10 @@ export function wrapError(error, status = 500) {
  * @param {any} result
  * @param {any} query
  */
-export function wrapResponse(result, query) {
-  if (result) {
+export function wrapResponse(data) {
+  if (data) {
     return {
-      data: result,
-      query,
+      data,
       status: { http: 200, message: "Success" },
     };
   } else {

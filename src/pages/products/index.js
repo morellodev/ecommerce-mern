@@ -14,7 +14,7 @@ export default function Products() {
     const res = await fetch("/api/products");
     const data = await res.json();
 
-    return data;
+    return data.data;
   });
 
   return (
@@ -26,9 +26,7 @@ export default function Products() {
 
       {status === "loading" && <Spinner />}
 
-      {status !== "loading" && data?.data && (
-        <ProductsGrid products={data.data} />
-      )}
+      {status !== "loading" && data && <ProductsGrid products={data} />}
     </Layout>
   );
 }

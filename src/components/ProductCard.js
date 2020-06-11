@@ -11,7 +11,7 @@ export default function ProductCard({ product }) {
   });
 
   return (
-    <Card className="h-100">
+    <Card className="h-100 border-0">
       <Card.Img variant="top" src={product.imageUrl} />
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>

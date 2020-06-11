@@ -1,29 +1,61 @@
 import nextConnect from "next-connect";
-import dbMiddleware from "@middlewares/database";
 import { ObjectId } from "mongodb";
+
+// Middlewares
+import dbMiddleware from "@middlewares/database";
 
 // Utils
 import { wrapError, wrapResponse } from "@utils/wrappers";
 
-const handler = nextConnect();
+const handler = nextConnect()
+  .use(dbMiddleware)
+  .get(async (req, res) => {
+    const { id } = req.query;
 
-handler.use(dbMiddleware);
+    let response;
+    try {
+      const doc = await req.db
+        .collection("products")
+        .findOne({ _id: ObjectId(id) });
 
-handler.get(async (req, res) => {
-  const { id } = req.query;
-  let response;
+      response = wrapResponse(doc);
+    } catch (error) {
+      response = wrapError(error);
+    }
 
-  try {
-    const doc = await req.db
-      .collection("products")
-      .findOne({ _id: ObjectId(id) });
+    res.status(response.status.http).json(response);
+  })
+  .put(async (req, res) => {
+    const { id } = req.query;
 
-    response = wrapResponse(doc, { id });
-  } catch (error) {
-    response = wrapError(error);
-  }
+    let response;
+    try {
+      const doc = await req.db
+        .collection("products")
+        .replaceOne({ _id: ObjectId(id) }, req.body);
 
-  res.status(response.status.http).json(response);
-});
+      response = wrapResponse(doc);
+    } catch (error) {
+      response = wrapError(error);
+    }
+
+    res.status(response.status.http).json(response);
+  })
+  .delete(async (req, res) => {
+    const { id } = req.query;
+
+    let response;
+    try {
+      const doc = await req.db
+        .collection("products")
+        .deleteOne({ _id: ObjectId(id) });
+
+      response = wrapResponse(doc);
+    } catch (error) {
+      response = wrapError(error);
+    }
+
+    res.status(response.status.http).json(response);
+  });
 
 export default handler;

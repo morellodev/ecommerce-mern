@@ -13,7 +13,6 @@ import { KEY_PRODUCT_BY_ID_GET } from "@configs/queryKeys";
 
 export default function Products() {
   const router = useRouter();
-
   const { data, error, status } = useQuery(
     router.query.id && [KEY_PRODUCT_BY_ID_GET, router.query.id],
     async (key, id) => {
@@ -24,7 +23,7 @@ export default function Products() {
         throw new Error(data.status.message);
       }
 
-      return data;
+      return data.data;
     },
     { retry: false }
   );
@@ -42,9 +41,7 @@ export default function Products() {
         <ErrorMessage message={error?.message ?? "Failed to fetch data"} />
       )}
 
-      {status !== "loading" && data?.data && (
-        <ProductDetails product={data.data} />
-      )}
+      {status !== "loading" && data && <ProductDetails product={data} />}
     </Layout>
   );
 }

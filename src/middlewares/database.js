@@ -17,8 +17,6 @@ async function database(req, res, next) {
   return next();
 }
 
-const middleware = nextConnect();
-
-middleware.use(database);
+const middleware = nextConnect().use(database);
 
 export default middleware;
